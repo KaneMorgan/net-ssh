@@ -222,7 +222,15 @@ module Net
         options[:number_of_password_prompts] = 0
       end
 
-      if options[:verbose]
+      # In the Loggable module a nil logger will never output.
+      if options[:verbose] == :silent
+        options[:logger] = nil
+      end
+
+      puts options[:verbose] == :silent
+      puts options[:logger]
+
+      if options[:verbose] && options[:logger]
         options[:logger].level = case options[:verbose]
           when Fixnum then options[:verbose]
           when :debug then Logger::DEBUG

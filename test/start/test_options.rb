@@ -67,6 +67,14 @@ module NetSSH
       end
     end
 
+    def test_logger_verbose_silent
+      options = { verbose: :silent }
+      Net::SSH.start('localhost', 'testuser', options)
+      logger = options[:logger].nil?
+      puts ("logger is #{logger} #{options[:logger]}")
+      assert logger
+    end
+
     def test_constructor_should_set_default_options
       options = { :logger => nil, :password_prompt => nil }
       Net::SSH.start('localhost', 'testuser', options)
